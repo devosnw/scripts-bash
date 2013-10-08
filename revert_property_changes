@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo
+
+while read line; do
+	file=${line:7}
+	svn revert $file
+done <<< "`svn status | grep '^ M      '`"
+
+echo 
+echo "Reverted all files that only have mergeinfo changes"

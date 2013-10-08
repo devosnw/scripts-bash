@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Get number of folders to make
+if test $# -gt 0
+then
+	folders=$1
+else
+	folders=20
+fi
+
+# Create 100 folders
+for i in $(eval echo {1..$folders}); do
+	foldername=folder_$i
+	mkdir -p $foldername
+	cd $foldername
+	
+	# Create up to 10 files in each dir
+	filenum=$(($RANDOM%10))
+	eval "touch file_{0..$filenum}.txt"
+
+	# Add some text to each of them
+	for file in *.txt; do
+		echo "This is some cool text!" > $file
+	done
+	
+	cd ".."
+done

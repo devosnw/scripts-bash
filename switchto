@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Switch localhost directory
+echo "Switching to $1"
+
+rm localhost
+
+ln -s "$1" localhost && cd "$1"
