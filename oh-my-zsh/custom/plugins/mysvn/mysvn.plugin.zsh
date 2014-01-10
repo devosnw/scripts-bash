@@ -83,3 +83,8 @@ function svn_switch() {
   
   svn switch "$where"
 }
+
+# add all unversioned files
+function svn_add_unversioned() {
+  svn status | grep "^?" | awk '{print $2}' | xargs svn add
+}
