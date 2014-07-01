@@ -1,24 +1,34 @@
 #!/bin/bash
 
 # Get number of files to make
-if test $# -gt 0
-then
+if test $# -gt 0; then
 	filenum=$1
 else
 	filenum=50
 fi
 
 # Get starting number
-if test $# -gt 1
-then
+if test $# -gt 1; then
     startnum=$2
 else
     startnum=1
 fi
 
-# Create x number of files and put content in them
+# Create x number of files
 for i in $(eval echo {1..$filenum}); do
     num=`expr $i + $startnum - 1`
-	# Add some text to each of them
-	echo "This is some cool text in file #$num" > file_$num.txt
+
+    # how many lines to add
+    lines=0
+    FLOOR=50
+    CEIL=200
+    while [ "$lines" -le $FLOOR ]; do
+        lines=$RANDOM
+        let "lines %= $CEIL"  # Scales $lines down within $CEIL
+    done
+
+	# Add $lines number of lines of content in them
+    for j in $(eval echo {1..$lines}); do
+        echo "Line #$j in file #$num" >> file_$num.txt
+    done
 done
